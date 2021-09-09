@@ -32,14 +32,26 @@ class Particle {
 
     //save and restore methods
     ctx.save(); //remembers canvas settings
-    ctx.translate(2, 2);
-    ctx.fillStyle = 'red';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(pumpkin, this.x, this.y, this.size, this.size);
+
+    //translate with current particales coordinates
+    ctx.translate(this.x, this.y);
+
+    //sping adds random rotation left right after refreshing
+    ctx.rotate(this.angle * Math.PI / 360 * this.spin);
+
+    //for testing purposes in order to better see whats going on
+    // ctx.fillStyle = 'red';
+    // ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    //replace this.x, and this.y to 0,0, in order not to repeat and make particales rotate while falling down
+    ctx.drawImage(pumpkin, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
     ctx.restore();//reset canvas settings when we last time called save
   }
   //update method
   update() {
+
+    //increase by 1 in every animation loop
+    this.angle++;
 
     //resetting after falls off screen
     if (this.y > canvas.height) {
@@ -55,6 +67,7 @@ class Particle {
 }
 
 const particle1 = new Particle();
+//will randomize different particles
 
 function animate() {
   //clear entire canvas area to see current animation frame
