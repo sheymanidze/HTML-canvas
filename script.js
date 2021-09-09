@@ -24,6 +24,19 @@ class Particle {
     ctx.fillRect(this.x, this.y, this.size, this.size)
 
     //update method
+    update(){
+      this.y += this.speed
+    }
   }
 }
+
+const particle1 = new Particle();
+
+function animate() {
+  particle1.update();
+  particle1.draw();
+  requestAnimationFrame(animate);
+}
+
+animate();
 
