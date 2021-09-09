@@ -65,7 +65,7 @@ class Particle {
     //long draw method (9 arguments, s=source, d=destination)
     // ctx.drawImage(pumpkins, sx, sy, sw, sh, dx, dy, dw, dh);
 
-    ctx.drawImage(pumpkins, 0, 0, this.spriteSize, this.spriteSize, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
+    ctx.drawImage(pumpkins, this.frameX * this.spriteSize, this.frameY * this.spriteSize, this.spriteSize, this.spriteSize, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
 
 
 
