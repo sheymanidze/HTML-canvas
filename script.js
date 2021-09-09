@@ -11,11 +11,12 @@ let particlesArray = []; // will contain coordinates and size for each of 200 pa
 const pumpkin = new Image();
 pumpkin.src = 'pumpkin.png';
 
+
 class Particle {
   constructor() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 100 + 50;
+    this.size = Math.random() * 20 + 50;
     this.speed = Math.random() * 5 + 1;
     this.angle = Math.random() * 360; //rotation
 
@@ -28,7 +29,14 @@ class Particle {
     //black rectangle
     //ctx.fillRect(this.x, this.y, this.size, this.size)
     //draw method-pass it as argument and draw img on the canvas (using 5 arguments method)
-    ctx.drawImage(pumpkin, this.x, this.y, this.size, this.size)
+
+    //save and restore methods
+    ctx.save(); //remembers canvas settings
+    ctx.translate(2, 2);
+    ctx.fillStyle = 'red';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(pumpkin, this.x, this.y, this.size, this.size);
+    ctx.restore();//reset canvas settings when we last time called save
   }
   //update method
   update() {
@@ -37,6 +45,9 @@ class Particle {
     if (this.y > canvas.height) {
       //make it slide in
       this.y = 0 - this.size;
+      this.x = Math.random() * canvas.width;
+      this.size = Math.random() * 20 + 50;
+      this.speed = Math.random() * 5 + 1;
     }
     this.y += this.speed;
   }
