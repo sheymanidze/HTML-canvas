@@ -66,14 +66,29 @@ class Particle {
 
 }
 
-const particle1 = new Particle();
-//will randomize different particles
+// const particle1 = new Particle();
+//running for loop and fill particles array with many randomized particle objects
+function init() {
+  for (let i = 0; i < numberOfParticles; i++) {
+    particlesArray.push(new Particle());
+  }
+}
+
+init();
 
 function animate() {
   //clear entire canvas area to see current animation frame
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particle1.update();
-  particle1.draw();
+  // particle1.update();
+  // particle1.draw();
+
+  //for loop will run through entire paarticles array and for each particle in object in the array it will call their associated draw and updtae methods...also, recalculate their positions
+  for (let i = 0; i < particlesArray.length; i++) {
+    particlesArray[i].draw();
+    particlesArray[i].update();
+  }
+
+
   requestAnimationFrame(animate);
 }
 animate();
