@@ -25,6 +25,11 @@ class Particle {
   }
   //update method
   update() {
+
+    //resetting after falls off screen
+    if (this.y > canvas.height) {
+      this.y = 0;
+    }
     this.y += this.speed;
   }
 
@@ -33,6 +38,8 @@ class Particle {
 const particle1 = new Particle();
 
 function animate() {
+  //clear entire canvas area to see current animation frame
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   particle1.update();
   particle1.draw();
   requestAnimationFrame(animate);
