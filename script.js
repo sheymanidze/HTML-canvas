@@ -5,23 +5,34 @@ const ctx = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-const numberOfParticales = 200;
+const numberOfParticales = 50;
 let particlesArray = []; // will contain coordinates and size for each of 200 particle objects
 
 const pumpkin = new Image();
 pumpkin.src = 'pumpkin.png';
+
+// const pumpkin2 = new Image();
+// pumpkin2.src = 'pumpkin2.png'
+
+const pumpkins = new Image();
+pumpkins.src = 'pumpkins.png';
 
 
 class Particle {
   constructor() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 20 + 50;
-    this.speed = Math.random() * 5 + 1;
+    this.size = Math.random() * 70 + 10;
+    this.speed = Math.random() * 2 + 0.5;
     this.angle = Math.random() * 360; //rotation
 
     //ternanry operator
     this.spin = Math.random() < 0.5 ? -1 : 1; // if math.random is less than 0.5 return -1 else return +1
+
+    //sprite sheet control
+    this.frameX = Math.floor(Math.random() * 3);//math floor for whole number(will return 0,1, or 2)
+    this.frameY = Math.floor(Math.random() * 3);
+    this.spriteSize = 900 / 3;
 
   }
   draw() {
@@ -44,22 +55,38 @@ class Particle {
     // ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     //replace this.x, and this.y to 0,0, in order not to repeat and make particales rotate while falling down
-    ctx.drawImage(pumpkin, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
+    // ctx.drawImage(pumpkin, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
+
+    // ctx.drawImage(pumpkin2, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
+
+
+
+
+    //long draw method (9 arguments, s=source, d=destination)
+    // ctx.drawImage(pumpkins, sx, sy, sw, sh, dx, dy, dw, dh);
+
+    ctx.drawImage(pumpkins, 0, 0, this.spriteSize, this.spriteSize, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
+
+
+
     ctx.restore();//reset canvas settings when we last time called save
   }
   //update method
   update() {
 
     //increase by 1 in every animation loop
-    this.angle++;
+    // this.angle++;
+
+    this.angle += 2;
 
     //resetting after falls off screen
-    if (this.y > canvas.height) {
+    //-this.size added so the particles won't reset to0 early (before even reaching the bottom of the page)
+    if (this.y - this.size > canvas.height) {
       //make it slide in
       this.y = 0 - this.size;
       this.x = Math.random() * canvas.width;
-      this.size = Math.random() * 20 + 50;
-      this.speed = Math.random() * 5 + 1;
+      this.size = Math.random() * 70 + 10;
+      this.speed = Math.random() * 2 + 0.5;
     }
     this.y += this.speed;
   }
@@ -69,7 +96,7 @@ class Particle {
 // const particle1 = new Particle();
 //running for loop and fill particles array with many randomized particle objects
 function init() {
-  for (let i = 0; i < numberOfParticles; i++) {
+  for (let i = 0; i < numberOfParticales; i++) {
     particlesArray.push(new Particle());
   }
 }
