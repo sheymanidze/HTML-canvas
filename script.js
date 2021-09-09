@@ -8,12 +8,15 @@ canvas.height = window.innerHeight;
 const numberOfParticales = 200;
 let particlesArray = []; // will contain coordinates and size for each of 200 particle objects
 
+const pumpkin = new Image();
+pumpkin.src = 'pumpkin.png';
+
 class Particle {
   constructor() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
     this.size = Math.random() * 100 + 50;
-    this.speed = Math.random() * 3 + 1;
+    this.speed = Math.random() * 5 + 1;
     this.angle = Math.random() * 360; //rotation
 
     //ternanry operator
@@ -21,14 +24,19 @@ class Particle {
 
   }
   draw() {
-    ctx.fillRect(this.x, this.y, this.size, this.size)
+
+    //black rectangle
+    //ctx.fillRect(this.x, this.y, this.size, this.size)
+    //draw method-pass it as argument and draw img on the canvas (using 5 arguments method)
+    ctx.drawImage(pumpkin, this.x, this.y, this.size, this.size)
   }
   //update method
   update() {
 
     //resetting after falls off screen
     if (this.y > canvas.height) {
-      this.y = 0;
+      //make it slide in
+      this.y = 0 - this.size;
     }
     this.y += this.speed;
   }
