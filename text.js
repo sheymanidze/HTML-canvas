@@ -65,6 +65,11 @@ function animate() {
   // particle1.draw();
   // particle2.update();
   // particle2.draw();
+
+  for (let i = 0; i < particlesArray.length; i++) {
+    particlesArray[i].update();
+    particlesArray[i].draw();
+  }
   requestAnimationFrame(animate);
 }
 
