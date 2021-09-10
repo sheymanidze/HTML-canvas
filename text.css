@@ -9,12 +9,25 @@ canvas {
 
 .canvas2 {
   box-sizing: border-box;
-  background: coral;
 }
 
-#title1 {
+.title1 {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 120px;
+  line-height: 110px;
+  white-space: nowrap;
+  border-top: 5px solid black;
+}
+
+/*sudo element(doesnt exist in html markup and entirely created with css) it has one mandadotry property-content, we can leave it empty or put text*/
+.title1::before {
+  content: "designer's dream";
+  position: absolute;
+  bottom: -70px;
+  font-size: 30px;
+  text-align: center;
+  width: 100%;
 }
