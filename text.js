@@ -22,5 +22,31 @@ class Particle {
     this.directionX = 1;
 
   }
+  update() {
+    this.weight += 0.01;
+    this.y += this.weight;
+  }
+
+  draw() {
+    ctx.fillStyle = 'red';
+    //start of drawing a circle
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.fill();
+  }
 }
+
+const particle1 = new Particle(100, 10);
+
+function animate() {
+  particle1.update();
+  particle1.draw();
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+
+
 
