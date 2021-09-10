@@ -11,6 +11,8 @@ canvas.height = window.innerHeight;
 
 let particlesArray = [];
 
+const numberOfParticales = 300;
+
 class Particle {
   //creating one blank object (constructor method) and assign values and properties based on blueprint iside the constructor
   constructor(x, y) {
@@ -19,12 +21,18 @@ class Particle {
     this.y = y;
     this.size = 10;
     this.weight = 2;
-    this.directionX = 1;
+    this.directionX = -2;
 
   }
   update() {
-    this.weight += 0.01;
+    if (this.y > canvas.height) {
+      this.y = 0 - this.size;
+      this.weight = 2;
+      this.x = Math.random() * canvas.width;
+    }
+    this.weight += 0.05;
     this.y += this.weight;
+    this.x += this.directionX
   }
 
   draw() {
@@ -37,11 +45,26 @@ class Particle {
   }
 }
 
-const particle1 = new Particle(100, 10);
+function init() {
+  for (let i = 0; i < numberOfParticales; i++) {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    particlesArray.push(new Particle(x, y));
+  }
+  // console.log(particlesArray);
+}
+init();
+
+// const particle1 = new Particle(400, 900);
+// const particle2 = new Particle(100, 100);
 
 function animate() {
-  particle1.update();
-  particle1.draw();
+  ctx.fillStyle = "rgba(255, 255, 255, 0.01)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // particle1.update();
+  // particle1.draw();
+  // particle2.update();
+  // particle2.draw();
   requestAnimationFrame(animate);
 }
 
